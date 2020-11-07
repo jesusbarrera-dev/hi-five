@@ -3,3 +3,9 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+/*Navbar Styles*/
+
+ul li{
+  font-family: 'Anton', sans-serif;
+}
