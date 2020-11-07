@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = app => {
 
   app.get('/', (req, res) => {
-    res.render("");
+    res.render("./layouts/index");
   });
 
   // app.use((req, res, next) => {
