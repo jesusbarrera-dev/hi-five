@@ -21686,6 +21686,12 @@ ul li{
   background-color: crimson;
 }
 
+/*Footer Styles*/
+
+.footer ul li{
+  font-family: 'Roboto', 'sans-serif';
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

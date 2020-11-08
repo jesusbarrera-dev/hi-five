@@ -52,3 +52,11 @@ ul li{
   background-size: cover;
   background-color: crimson;
 }
+
+
+
+/*Footer Styles*/
+
+.footer ul li{
+  font-family: 'Roboto', 'sans-serif';
+}
