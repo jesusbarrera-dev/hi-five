@@ -7,6 +7,10 @@ module.exports = app => {
     res.render("./layouts/index");
   });
 
+  app.get('/login', (req, res) => {
+    res.render("./layouts/login");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });

@@ -53,6 +53,17 @@ ul li{
   background-color: crimson;
 }
 
+/*Login Styles*/
+
+.login-bg-img{
+  background-image: url("../images/login-bg.png");
+  background-repeat: no-repeat, repeat;
+  width: 100%;
+  height: 800px;
+  background-position: center;
+  background-size: cover;
+  background-color: crimson;
+}
 
 
 /*Footer Styles*/
