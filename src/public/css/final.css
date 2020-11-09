@@ -21646,44 +21646,29 @@ ul li{
 
 /*Home Styles*/
 
-.gabb-tapic{
-  background-image: url("../images/gabb-tapic.jpg");
+.home-image{
   background-repeat: no-repeat, repeat;
   width: 100%;
   height: 1200px;
   background-position: center;
   background-size: cover;
   background-color: crimson;
+}
+
+.gabb-tapic{
+  background-image: url("../images/gabb-tapic.jpg");
 }
 
 .neemias-seara{
   background-image: url("../images/neemias-seara.jpg");
-  background-repeat: no-repeat, repeat;
-  width: 100%;
-  height: 1200px;
-  background-position: center;
-  background-size: cover;
-  background-color: crimson;
 }
 
 .ivan-oboleninov{
   background-image: url("../images/ivan-oboleninov.jpg");
-  background-repeat: no-repeat, repeat;
-  width: 100%;
-  height: 1200px;
-  background-position: center;
-  background-size: cover;
-  background-color: crimson;
 }
 
 .vova-krasilnikov{
   background-image: url("../images/vova-krasilnikov.jpg");
-  background-repeat: no-repeat, repeat;
-  width: 100%;
-  height: 1200px;
-  background-position: center;
-  background-size: cover;
-  background-color: crimson;
 }
 
 /*Login Styles*/

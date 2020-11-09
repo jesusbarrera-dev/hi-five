@@ -11,6 +11,10 @@ module.exports = app => {
     res.render("./layouts/login");
   });
 
+  app.get('/hombre', (req, res) => {
+    res.render("./layouts/hombre");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
