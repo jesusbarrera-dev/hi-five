@@ -15,6 +15,10 @@ module.exports = app => {
     res.render("./layouts/hombre");
   });
 
+  app.get('/mujer', (req, res) => {
+    res.render("./layouts/mujer");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
