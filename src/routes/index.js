@@ -24,6 +24,10 @@ module.exports = app => {
     res.render("./layouts/registroProducto");
   });
 
+  app.get('/registroUsuario', (req, res) => {
+    res.render("./layouts/registroUsuario");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
