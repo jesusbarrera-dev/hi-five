@@ -1,3 +1,4 @@
+const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
@@ -17,6 +18,10 @@ module.exports = app => {
 
   app.get('/mujer', (req, res) => {
     res.render("./layouts/mujer");
+  });
+
+  app.get('/registroProducto', (req, res) => {
+    res.render("./layouts/registroProducto");
   });
 
   // app.use((req, res, next) => {

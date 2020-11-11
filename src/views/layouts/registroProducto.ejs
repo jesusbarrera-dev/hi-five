@@ -1,0 +1,45 @@
+<%- include('../partials/navbar'); -%>
+
+<div class="container ml-auto mr-auto">
+  <form action="" method="post">
+    <div class="flex flex-row m-8">
+      <label class="ml-auto mr-auto" for="id">Id del producto</label>
+      <input class="ml-auto mr-auto border-solid border-black" type="number" name="" id="">
+    </div>
+    <div class="flex flex-row m-8">
+      <label class="ml-auto mr-auto" for="nombre">Nombre del producto</label>
+      <input class="ml-auto mr-auto" type="text" name="" id="">
+    </div>
+    <div class="flex flex-row m-8">
+      <label class="ml-auto mr-auto" for="precio">Precio del producto</label>
+      <input class="ml-auto mr-auto" type="number" name="" id="" step="0.01" min="0">
+    </div>
+    <div class="flex flex-row m-8">
+      <label class="mx-4 ml-auto mr-auto" for="categoria">categoria del producto</label>
+      <input class="mx-10 ml-auto mr-auto" type="text" name="" id="">
+    </div>
+    <div class="flex flex-row m-8">
+      <label class="mx-4 ml-auto mr-auto" for="estilo">Estilo del producto</label>
+      <input class="mx-16 ml-auto mr-auto" type="text" name="" id="">
+    </div>
+    <div class="flex flex-row m-8">
+      <label class="mx-4 ml-auto mr-auto" for="descripcion">Descripcion del producto</label>
+      <textarea class="mx-4 ml-auto mr-auto" name="" id="" cols="30" rows="10"></textarea>
+    </div>
+
+    <div class="flex flex-row m-8">
+      <label class="mx-4 ml-auto mr-auto" for="imagen">Imágen: </label>
+      <input class="mx-4 ml-auto mr-auto" type="file" name="mypic" required /> <br>
+    </div>
+
+    <div class="flex flex-row m-8">
+      <button
+        class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+        Registrar producto
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<%- include('../partials/footer'); -%>

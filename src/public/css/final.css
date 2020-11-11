@@ -21683,6 +21683,24 @@ ul li{
   background-color: crimson;
 }
 
+/*Registry Products Styles*/
+
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: 0.1rem;
+  background-color: white;
+}
+
+textarea {
+  border-style: solid;
+  border-color: black;
+  border-width: 0.1rem;
+}
+
 /*Footer Styles*/
 
 .footer ul li{
