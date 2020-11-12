@@ -28,8 +28,8 @@ module.exports = app => {
     res.render("./layouts/almacen");
   });
 
-  app.get('/registroProducto', (req, res) => {
-    res.render("./layouts/registroProducto");
+  app.get('/carrito', (req, res) => {
+    res.render("./layouts/carrito");
   });
 
   // app.use((req, res, next) => {
