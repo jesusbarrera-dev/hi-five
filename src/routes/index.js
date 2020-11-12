@@ -20,6 +20,10 @@ module.exports = app => {
     res.render("./layouts/mujer");
   });
 
+  app.get('/admin', (req, res) => {
+    res.render("./layouts/admin");
+  });
+
   app.get('/registroProducto', (req, res) => {
     res.render("./layouts/registroProducto");
   });
