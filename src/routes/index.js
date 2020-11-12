@@ -24,12 +24,12 @@ module.exports = app => {
     res.render("./layouts/admin");
   });
 
-  app.get('/registroProducto', (req, res) => {
-    res.render("./layouts/registroProducto");
+  app.get('/almacen', (req, res) => {
+    res.render("./layouts/almacen");
   });
 
-  app.get('/registroUsuario', (req, res) => {
-    res.render("./layouts/registroUsuario");
+  app.get('/registroProducto', (req, res) => {
+    res.render("./layouts/registroProducto");
   });
 
   // app.use((req, res, next) => {
