@@ -40,6 +40,10 @@ module.exports = app => {
     res.render("./layouts/compras");
   });
 
+  app.get('/devolucion', (req, res) => {
+    res.render("./layouts/devolucion");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
