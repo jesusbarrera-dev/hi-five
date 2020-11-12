@@ -32,6 +32,10 @@ module.exports = app => {
     res.render("./layouts/carrito");
   });
 
+  app.get('/pago', (req, res) => {
+    res.render("./layouts/pago");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
