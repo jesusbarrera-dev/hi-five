@@ -36,6 +36,10 @@ module.exports = app => {
     res.render("./layouts/pago");
   });
 
+  app.get('/compras', (req, res) => {
+    res.render("./layouts/compras");
+  });
+
   // app.use((req, res, next) => {
   //   res.status(404).render("error404")
   // });
