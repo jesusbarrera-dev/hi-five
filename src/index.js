@@ -1,6 +1,7 @@
 //NPM NODE MODULES
 const express = require('express');
 const app = express();
+const router = express.Router();
 const path = require('path');
 const ejs = require('ejs');
 const multer = require('multer');
@@ -8,19 +9,35 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
 
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 //DATABASE MODELS
 const Schema = mongoose.Schema;
 
-//Image
-// const ImageSchema = new mongoose.Schema({
-//   img: {
-//     data: Buffer,
-//     contentType: String
-//   }
-// });
+//User
+const UserSchema = new Schema({
+  name: { type: String, required: true },
+  usertype: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+});
 
-// const Image = mongoose.model("Image", ImageSchema);
+const User = mongoose.model('User', UserSchema);
+
+// Image
+const ImageSchema = new mongoose.Schema({
+  img: {
+    data: Buffer,
+    contentType: String
+  }
+});
+
+const Image = mongoose.model("Image", ImageSchema);
 
 //Product
 const ProductSchema = new Schema({
@@ -36,12 +53,12 @@ const Product = mongoose.model("Product", ProductSchema);
 
 //DB config
 
-mongoose.connect('mongodb://localhost/hifive', {
+mongoose.connect('mongodb+srv://admin-alex:hifive0598@hifive.bwchz.mongodb.net/hifive', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-//.then(db => console.log('database connected'))
-//.catch(err => console.error(err));
+.then(db => console.log('database connected'))
+.catch(err => console.error(err));
 
 //settings
 app.set('port', process.env.PORT || 3000);
@@ -109,6 +126,25 @@ app.get('/login', (req, res) => {
   res.render("./layouts/login");
 });
 
+app.post('/login',  urlencodedParser, (req, res) =>{
+  const correo = req.body.correo;
+  const contra = req.body.contra;
+
+  User.findOne({email: correo}, (err, foundUser)=>{
+    if(err){
+      console.log(err);
+    } else{
+      if(foundUser){
+        console.log("Encontro usuario");
+        if(foundUser.password === contra){
+          console.log("misma contra");
+          res.render("./layouts/index");
+        }
+      }
+    }
+  });
+});
+
 app.get('/hombre', (req, res) => {
   res.render("./layouts/hombre");
 });
@@ -142,17 +178,12 @@ app.get('/devolucion', (req, res) => {
 });
 
 app.post('/almacen', upload.single('image'), (req, res) => {
-  // const myfile = req.files;
-  // var f = new Image;
-  // const name = req.body.product_name;
-  // const description = req.body.product_desc;
-  // const price = req.body.product_price;
-  // const category = req.body.product_category;
-  // const quantity = req.body.product_quantity;
+  const myfile = req.files;
+  var f = new Image;
 
-  // f.img.data = fs.readFileSync(__dirname + "/public/images/" + req.file.originalname);
+  f.img.data = fs.readFileSync(__dirname + "/public/images/" + req.file.originalname);
 
-  // f.img.contentType = "image/png";
+  f.img.contentType = "image/png";
 
   const product = new Product({
     name: req.body.product_name,
@@ -160,7 +191,7 @@ app.post('/almacen', upload.single('image'), (req, res) => {
     price: req.body.product_price,
     category: req.body.product_category,
     quantity: req.body.product_quantity,
-    image: req.files
+    image: f
   });
 
   product.save(function (err) {
