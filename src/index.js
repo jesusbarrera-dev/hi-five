@@ -78,7 +78,7 @@ app.use('/public', express.static(path.join(__dirname, './public')));
 // const app = config(express());
 
 app.use(function (req, res, next) {
-  console.log(req.files); // JSON Object
+  // console.log(req.files); // JSON Object
   next();
 });
 
@@ -153,9 +153,9 @@ app.post('/login',  urlencodedParser, (req, res) =>{
 });
 
 app.post('/buscarp', urlencodedParser, (req, res) => {
-  const precio = req.body.product_id;
+  const id = req.body.product_id;
 
-  Product.findOne({price: precio}, (err, foundProduct) =>{
+  Product.findOne({_id: id}, (err, foundProduct) =>{
     if(err){
       console.log(err);
     } else{
@@ -166,6 +166,22 @@ app.post('/buscarp', urlencodedParser, (req, res) => {
   });
 
 });
+
+app.get("/mostrarpro", async (req, res) => {
+  try {
+      const productos = await Product.find({});
+
+      if (productos) {
+          res.render("./layouts/mostrarpro", {
+              products: productos
+          });
+      }
+
+  } catch (error) {
+      console.log(error);
+  }
+});
+
 
 app.get('/hombre', (req, res) => {
   res.render("./layouts/hombre");
@@ -217,7 +233,10 @@ app.post('/almacen', upload.single('image'), (req, res) => {
   });
 
   product.save(function (err) {
-    if (!err) console.log("producto registrado")
+    if (!err) {
+      console.log("producto registrado");
+      res.redirect("/almacen");
+    }
     else if (err) {
       console.log(err);
     }

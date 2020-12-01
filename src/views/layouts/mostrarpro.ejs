@@ -1,0 +1,79 @@
+<%- include('../partials/simpleNav'); -%>
+
+<!--MOSTRAR PRODUCTO-->
+<div class="flex flex-column my-4">
+
+  <div class="container mx-auto">
+
+    <h1 class="text-center text-4xl my-4">Mostrar productos</h1>
+
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  ID Producto
+                </th>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Nombre
+                </th>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Precio
+                </th>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Categoria
+                </th>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Existencia
+                </th>
+                <th
+                  class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Descripcion
+                </th>
+                <th class="px-6 py-3 bg-gray-50"></th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+
+              <%for(var i = 0; i < 1; i++){%>
+                <tr>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 font-medium text-gray-900">
+                      <%=products[i]._id%>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=products[i].name%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900">$<%=products[i].price%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=products[i].category%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=products[i].quantity%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                    <%=products[i].description%>
+                  </td>
+                </tr>
+              <%};%>
+
+              <!-- More rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer'); -%>
