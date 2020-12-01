@@ -7,6 +7,7 @@ const ejs = require('ejs');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 const fs = require('fs');
 
 // create application/json parser
@@ -15,6 +16,16 @@ var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+//DB config
+
+mongoose.connect('mongodb+srv://admin-alex:hifive0598@hifive.bwchz.mongodb.net/hifive', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(db => console.log('database connected'))
+.catch(err => console.error(err));
+
+autoIncrement.initialize(mongoose.connection);
 
 //DATABASE MODELS
 const Schema = mongoose.Schema;
@@ -26,6 +37,8 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
 });
+
+UserSchema.plugin(autoIncrement.plugin, 'User');
 
 const User = mongoose.model('User', UserSchema);
 
@@ -41,6 +54,7 @@ const Image = mongoose.model("Image", ImageSchema);
 
 //Product
 const ProductSchema = new Schema({
+  _id: {type: Number, required:true},
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
@@ -49,16 +63,9 @@ const ProductSchema = new Schema({
   image: Object
 });
 
+ProductSchema.plugin(autoIncrement.plugin, 'Product');
+
 const Product = mongoose.model("Product", ProductSchema);
-
-//DB config
-
-mongoose.connect('mongodb+srv://admin-alex:hifive0598@hifive.bwchz.mongodb.net/hifive', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(db => console.log('database connected'))
-.catch(err => console.error(err));
 
 //settings
 app.set('port', process.env.PORT || 3000);
@@ -134,15 +141,30 @@ app.post('/login',  urlencodedParser, (req, res) =>{
     if(err){
       console.log(err);
     } else{
-      if(foundUser){
-        console.log("Encontro usuario");
-        if(foundUser.password === contra){
-          console.log("misma contra");
-          res.render("./layouts/index");
+      if(foundUser && foundUser.password === contra){
+        if(foundUser.usertype === "c"){//si el usuario es tipo cliente.
+          res.redirect("/index");
+        } else if(foundUser.usertype === "a"){//si el usuario es tipo admin.
+          res.redirect("/almacen");
         }
       }
     }
   });
+});
+
+app.post('/buscarp', urlencodedParser, (req, res) => {
+  const precio = req.body.product_id;
+
+  Product.findOne({price: precio}, (err, foundProduct) =>{
+    if(err){
+      console.log(err);
+    } else{
+      if(foundProduct){
+        console.log("Nombre: " + foundProduct.name);
+      }
+    }
+  });
+
 });
 
 app.get('/hombre', (req, res) => {
@@ -202,7 +224,6 @@ app.post('/almacen', upload.single('image'), (req, res) => {
   });
 
 });
-
 
 app.listen(app.get('port'), () => {
   console.log('Server started on port', app.get('port'));
