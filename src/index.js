@@ -152,6 +152,33 @@ app.post('/login',  urlencodedParser, (req, res) =>{
   });
 });
 
+app.post("/modificarp", urlencodedParser, async (req, res) => {
+  // const id = req.body.product_id;
+
+  // const name = req.body.product_name;
+  // const description = req.body.product_desc;
+  // const price = req.body.product_price;
+  // const category = req.body.product_category;
+  // const quantity = req.body.product_quantity;
+
+  // console.log("*****NOMBRE: " + name + "********ID:" +id);
+
+  try {
+    await Product.findOneAndUpdate({_id: req.body.product_id},{
+      name: req.body.product_name,
+      description: req.body.product_desc,
+      price: req.body.product_price,
+      category: req.body.product_category,
+      quantity: req.body.product_quantity
+    });
+    res.redirect("/mostrarp");
+    
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
 app.post('/buscarp', urlencodedParser, (req, res) => {
   const id = req.body.product_id;
 
@@ -160,20 +187,29 @@ app.post('/buscarp', urlencodedParser, (req, res) => {
       console.log(err);
     } else{
       if(foundProduct){
-        console.log("Nombre: " + foundProduct.name);
+        res.render("./layouts/buscarp", {
+          product : foundProduct
+        });
       }
     }
   });
 
 });
 
-app.get("/mostrarpro", async (req, res) => {
+app.get("/buscarp", async (req, res) =>{
+  res.render("./layouts/buscarp");
+});
+
+app.get("/mostrarp", async (req, res) => {
   try {
       const productos = await Product.find({});
 
+      var size = productos.length;
+
       if (productos) {
-          res.render("./layouts/mostrarpro", {
-              products: productos
+          res.render("./layouts/mostrarp", {
+              products: productos,
+              size : size
           });
       }
 
@@ -181,7 +217,6 @@ app.get("/mostrarpro", async (req, res) => {
       console.log(error);
   }
 });
-
 
 app.get('/hombre', (req, res) => {
   res.render("./layouts/hombre");
