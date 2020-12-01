@@ -153,15 +153,6 @@ app.post('/login',  urlencodedParser, (req, res) =>{
 });
 
 app.post("/modificarp", urlencodedParser, async (req, res) => {
-  // const id = req.body.product_id;
-
-  // const name = req.body.product_name;
-  // const description = req.body.product_desc;
-  // const price = req.body.product_price;
-  // const category = req.body.product_category;
-  // const quantity = req.body.product_quantity;
-
-  // console.log("*****NOMBRE: " + name + "********ID:" +id);
 
   try {
     await Product.findOneAndUpdate({_id: req.body.product_id},{
@@ -193,6 +184,20 @@ app.post('/buscarp', urlencodedParser, (req, res) => {
       }
     }
   });
+
+});
+
+
+app.post('/eliminarp', urlencodedParser, async (req, res) => {
+
+  const id = req.body.product_id;
+
+  try {
+    await Product.findOneAndDelete({_id: id});
+    res.redirect('/almacen');
+  } catch (error) {
+    console.log(error);
+  }
 
 });
 
