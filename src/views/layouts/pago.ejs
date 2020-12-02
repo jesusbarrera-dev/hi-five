@@ -4,28 +4,30 @@
     <div class="mt-10 sm:mt-0">
         <div class="md:grid md:grid-cols-3 md:gap-6">
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+
+            <form action="/pago" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <div class="grid grid-cols-6 gap-6">
+
                     <div class="col-span-6 sm:col-span-3">
                       <label for="first_name" class="block text-sm font-medium leading-5 text-gray-700">Nombre(s)</label>
-                      <input id="first_name" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="first_name" name="fname" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-3">
                       <label for="last_name" class="block text-sm font-medium leading-5 text-gray-700">Apellidos</label>
-                      <input id="last_name" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="last_name" name="lname" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-4">
                       <label for="email_address" class="block text-sm font-medium leading-5 text-gray-700">Correo electrónico</label>
-                      <input id="email_address" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="email_address" name="email" type="email" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-3">
                       <label for="country" class="block text-sm font-medium leading-5 text-gray-700">Pais</label>
-                      <select id="country" class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <select id="country" name="country" class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         <option>United States</option>
                         <option>Canadá</option>
                         <option>Mexico</option>
@@ -34,44 +36,52 @@
       
                     <div class="col-span-6">
                       <label for="street_address" class="block text-sm font-medium leading-5 text-gray-700">Calle</label>
-                      <input id="street_address" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="street_address" name="street" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label for="city" class="block text-sm font-medium leading-5 text-gray-700">Ciudad</label>
-                      <input id="city" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="city" name="city" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                       <label for="state" class="block text-sm font-medium leading-5 text-gray-700">Estado</label>
-                      <input id="state" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="state" name="state" type="text"  class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
       
                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                       <label for="postal_code" class="block text-sm font-medium leading-5 text-gray-700">Código Postal</label>
-                      <input id="postal_code" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                      <input id="zipcode" name="zipcode" type="text"  class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="first_name" class="block text-sm font-medium leading-5 text-gray-700">Número de tarjeta</label>
-                        <input id="first_name" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        <label for="card" class="block text-sm font-medium leading-5 text-gray-700">Número de tarjeta</label>
+                        <input id="card" name="cardnum" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                       </div>
         
                       <div class="col-span-6 sm:col-span-3">
-                        <label for="last_name" class="block text-sm font-medium leading-5 text-gray-700">CVV</label>
-                        <input id="last_name" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        <label for="cvv" class="block text-sm font-medium leading-5 text-gray-700">CVV</label>
+                        <input id="cvv" name="cvv" type="text" class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                       </div>
 
                   </div>
 
                 </div>
+
+                <input type="hidden" name="subtotal" value="<%=sub%>">
+                <input type="hidden" name="iva" value="<%=iva%>">
+                <input type="hidden" name="total" value="<%=total%>">
+                <input type="hidden" name="products" value="<%=cart.products%>">
+                <input type="hidden" name="cantidad" value="<%=cart.quantities%>">
+
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button class="m-8 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                    <button class="m-8 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
                         Realizar pago
                     </button>
                 </div>
               </div>
             </form>
+
           </div>
         </div>
     </div>

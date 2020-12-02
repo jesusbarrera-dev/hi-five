@@ -45,11 +45,60 @@ const User = mongoose.model('User', UserSchema);
 //Cart
 
 const CartSchema = new Schema({
+  // _id: { type: Number, required: true },
   user: { type: Schema.ObjectId, ref: "User" },
   products: [{ type: Schema.ObjectId, ref: "Product" }]
 });
 
+CartSchema.plugin(autoIncrement.plugin, 'Cart');
+
 const Cart = mongoose.model('Cart', CartSchema);
+
+//Sale
+
+const SaleSchema = new Schema({
+  // _id: { type: Number, required: true },
+  client: { type: Schema.ObjectId, ref: "User" },
+  info: { type: Schema.ObjectId, ref: "Saleinfo" }
+});
+
+SaleSchema.plugin(autoIncrement.plugin, 'Sale');
+
+const Sale = mongoose.model('Sale', SaleSchema);
+
+//Payment
+
+const PaymentSchema = new Schema({
+  // _id: { type: Number, required: true },
+  fname: { type: String, required: true },
+  lname: { type: String, required: true },
+  email: { type: String, required: true },
+  country: { type: String, required: true },
+  street: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zipcode: { type: String, required: true },
+  cardnum: { type: Number, required: true },
+  cvv: { type: Number, required: true },
+
+});
+
+PaymentSchema.plugin(autoIncrement.plugin, 'Payment');
+
+const Payment = mongoose.model('Payment', PaymentSchema);
+
+//Sale info
+
+const SaleinfoSchema = new Schema({
+  // _id: { type: Number, required: true },
+  products: [{ type: Schema.ObjectId, ref: "Product" }],
+  payment: { type: Schema.ObjectId, ref: "Payment" },
+  date: { type: Date, default: Date.now() },
+});
+
+SaleinfoSchema.plugin(autoIncrement.plugin, 'Saleinfo');
+
+const Saleinfo = mongoose.model('Saleinfo', SaleinfoSchema);
 
 // Image
 const ImageSchema = new mongoose.Schema({
@@ -364,7 +413,82 @@ function foo(arr) {
 }
 
 app.get('/pago', (req, res) => {
-  res.render("./layouts/pago");
+
+  const sub = req.body.sub;
+  const iva = req.body.iva;
+  const total = req.body.total;
+
+  const cart = new Cart({
+    user: theUser._id,
+    products: req.body.products,
+    quantities: req.body.quantities
+  });
+
+  res.render("./layouts/pago",{
+    sub: sub,
+    iva: iva,
+    total: total,
+    cart: cart
+  });
+
+});
+
+app.post('/pago', async (req, res) =>{
+
+  const payment = new Payment({
+    fname: req.body.fname,
+    lname: req.body.lname,
+    email: req.body.email,
+    country: req.body.country,
+    street: req.body.street,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    cardnum: req.body.cardnum,
+    cvv: req.body.cvv
+  });
+
+  await payment.save(function (err) {
+    if (!err) {
+      console.log("payment registrado");
+    }
+    else if (err) {
+      console.log(err);
+    }
+  });
+
+  const saleinfo = new Saleinfo({
+    products: req.body.products,
+    quantities: req.body.quantities,
+    payment: payment._id,
+  });
+
+  await saleinfo.save(function (err) {
+    if (!err) {
+      console.log("salesinfo registrado");
+    }
+    else if (err) {
+      console.log(err);
+    }
+  });
+
+  const sale = new Sale({
+    client: theUser._id,
+    info: salesinfo._id
+  });
+
+  await sale.save(function (err) {
+    if (!err) {
+      console.log("sales registrado");
+    }
+    else if (err) {
+      console.log(err);
+    }
+  });
+
+  res.redirect('/');
+
+
 });
 
 app.get('/compras', (req, res) => {
