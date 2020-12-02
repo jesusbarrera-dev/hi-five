@@ -42,6 +42,15 @@ UserSchema.plugin(autoIncrement.plugin, 'User');
 
 const User = mongoose.model('User', UserSchema);
 
+//Cart
+
+const CartSchema = new Schema({
+  user: { type: Schema.ObjectId, ref: "User" },
+  products: [{ type: Schema.ObjectId, ref: "Product" }]
+});
+
+const Cart = mongoose.model('Cart', CartSchema);
+
 // Image
 const ImageSchema = new mongoose.Schema({
   img: {
@@ -122,11 +131,18 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 //   storage: storage
 // });
 
+//Global variables
+let theUser = new User;
+let theDate = new Date();
+let theCartArray = new Array();
 
 //Routes
 
 app.get('/', (req, res) => {
-  res.render("./layouts/index");
+  res.render("./layouts/index",{
+    theUser: theUser,
+    theDate: theDate
+  });
 });
 
 app.get('/login', (req, res) => {
@@ -142,8 +158,13 @@ app.post('/login',  urlencodedParser, (req, res) =>{
       console.log(err);
     } else{
       if(foundUser && foundUser.password === contra){
+        theUser = foundUser;
         if(foundUser.usertype === "c"){//si el usuario es tipo cliente.
-          res.redirect("/index");
+          var userid = foundUser._id;
+          let theCart = new Cart({
+            user: userid
+          });
+          res.redirect("/");
         } else if(foundUser.usertype === "a"){//si el usuario es tipo admin.
           res.redirect("/almacen");
         }
@@ -179,7 +200,9 @@ app.post('/buscarp', urlencodedParser, (req, res) => {
     } else{
       if(foundProduct){
         res.render("./layouts/buscarp", {
-          product : foundProduct
+          product : foundProduct,
+          theUser: theUser,
+          theDate: theDate
         });
       }
     }
@@ -202,7 +225,7 @@ app.post('/eliminarp', urlencodedParser, async (req, res) => {
 });
 
 app.get("/buscarp", async (req, res) =>{
-  res.render("./layouts/buscarp");
+  res.render("./layouts/buscarp",);
 });
 
 app.get("/mostrarp", async (req, res) => {
@@ -214,7 +237,9 @@ app.get("/mostrarp", async (req, res) => {
       if (productos) {
           res.render("./layouts/mostrarp", {
               products: productos,
-              size : size
+              size : size,
+              theUser: theUser,
+              theDate: theDate
           });
       }
 
@@ -223,12 +248,50 @@ app.get("/mostrarp", async (req, res) => {
   }
 });
 
-app.get('/hombre', (req, res) => {
-  res.render("./layouts/hombre");
+app.get('/hombre', async (req, res) => {
+  
+  try {
+    const productos = await Product.find({
+      "category": 'Hombre',
+    });
+
+    var size = productos.length;
+
+    if(productos){
+      res.render("./layouts/hombre", {
+        products: productos,
+        size: size,
+        theUser: theUser,
+        theDate: theDate
+      });
+    }
+
+  } catch (error) {
+      console.log(error);
+  }
+  
 });
 
-app.get('/mujer', (req, res) => {
-  res.render("./layouts/mujer");
+app.get('/mujer', async (req, res) => {
+  try {
+    const productos = await Product.find({
+      "category": 'Mujer'
+    });
+
+    var size = productos.length;
+
+    if(productos){
+      res.render("./layouts/mujer", {
+        products: productos,
+        size: size,
+        theUser: theUser,
+        theDate: theDate
+      });
+    }
+
+  } catch (error) {
+      console.log(error);
+  }
 });
 
 app.get('/admin', (req, res) => {
@@ -236,12 +299,69 @@ app.get('/admin', (req, res) => {
 });
 
 app.get('/almacen', (req, res) => {
-  res.render("./layouts/almacen");
+  res.render("./layouts/almacen",{
+    theUser: theUser,
+    theDate: theDate
+  });
 });
 
-app.get('/carrito', (req, res) => {
-  res.render("./layouts/carrito");
+app.get('/carrito', async (req, res) => {
+
+  let arrHelper = foo(theCartArray);
+  const idsCart = arrHelper[0];
+  const cantidadCart = arrHelper[1];
+  const size = idsCart.length;
+
+  const products = await Product.find().where('_id').in(idsCart).exec();
+
+  res.render("./layouts/carrito",{
+    products: products,
+    size: size,
+    cantidad: cantidadCart,
+    theUser: theUser,
+    theDate: theDate
+  });
 });
+
+app.post('/carrito/:idProducto', async (req, res) =>{
+  try {
+    const id = req.params.idProducto;
+
+    const producto = await Product.findOne({
+      _id: id
+    });
+
+    if(producto){
+      theCartArray.push(id);
+      // theCartArray =[]; //vacia el arreglo
+      console.log(theCartArray);
+    }
+    res.redirect('/carrito');
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Funcion que regresa arreglo sin duplicados y arreglo con cantidad. Para el carrito
+function foo(arr) {
+  var a = [],
+    b = [],
+    prev;
+
+  arr.sort();
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] !== prev) {
+      a.push(arr[i]);
+      b.push(1);
+    } else {
+      b[b.length - 1]++;
+    }
+    prev = arr[i];
+  }
+
+  return [a, b];
+}
 
 app.get('/pago', (req, res) => {
   res.render("./layouts/pago");

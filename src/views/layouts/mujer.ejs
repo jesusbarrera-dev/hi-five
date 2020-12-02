@@ -1,179 +1,35 @@
 <%- include('../partials/navbar'); -%>
 
+<p>Bienvenido <strong><%=theUser.name%></strong></p>
+<p>Hoy es: <%=theDate%></p>
+
 <div class="container inline-flex flex-wrap max-w-full px-10">
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/ana-ferreira.jpg" Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
+  
+  <%for(var i = 0; i < size; i++){%>
 
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/asa-dugger.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
+    <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
+      <img src="data:image/<%=products[i].image.img.contentType%>;base64,
+        <%=products[i].image.img.data.toString('base64')%>" class="w-full" alt="img-propiedad">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2"><%=products[i].name%></div>
+        <p class="text-gray-700 text-base">
+          <%=products[i].description%>
+        </p>
+      </div>
+      <div class="px-6 pt-4 pb-2">
+        <span
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#<%=products[i].category%></span>
+        <span
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">$<%=products[i].price%></span>
 
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/c-technical.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
+          <form action="/carrito/<%=products[i]._id%>" method="post">
+            <a href="#"><button class="ml-auto mr-auto bg-green-500 hover:bg-green-400 text-white font-bold py-4 px-8 border-b-4 border-green-700 hover:border-green-500 rounded"> Agregar al carrito</button></a>
+          </form>
+
+      </div>
     </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/gustavo-almeida.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/jennifer-enujiugha.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/jonathan-faria.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/julia-kuzenkov.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/luis-quintero.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
-  <div class="w-1/3 inline-block p-4 my-4 rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="../../public/images/mujer/miftah-rafli-hidayat.jpg" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-      <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis
-        eaque,
-        exercitationem praesentium nihil.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-    </div>
-  </div>
+
+  <%};%>
 
 </div>
 

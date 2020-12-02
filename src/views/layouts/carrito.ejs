@@ -1,5 +1,8 @@
 <%- include('../partials/navbar'); -%>
 
+<p>Bienvenido <strong><%=theUser.name%></strong></p>
+<p>Hoy es: <%=theDate%></p>
+
 <div class="container mx-auto">
   <h2 class="text-4xl m-8">
     Tu carrito
@@ -26,66 +29,47 @@
                 </th>
                 <th
                   class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Categoria
+                  Cantidad
                 </th>
                 <th
                   class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Estilo
+                  Categoria
                 </th>
                 <th
                   class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                   Descripcion
                 </th>
                 <th class="px-6 py-3 bg-gray-50"></th>
-                <th class="px-6 py-3 bg-gray-50"></th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 font-medium text-gray-900">
-                    12345
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Star Jeans</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">$199.99</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Jeans</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Casual</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </td>
-              </tr>
 
-              <tr>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 font-medium text-gray-900">
-                    12345
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Star Jeans</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">$199.99</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Jeans</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">Casual</div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </td>
-              </tr>
+              <%for(var i = 0; i < size; i++){%>
+                <tr>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 font-medium text-gray-900">
+                      <%=products[i]._id%>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=products[i].name%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900">$<%=products[i].price%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=cantidad[i]%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%=products[i].category%></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                    <%=products[i].description%>
+                  </td>
+                </tr>
+              <%};%>
+
+              <!-- More rows... -->
             </tbody>
           </table>
         </div>
