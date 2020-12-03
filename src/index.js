@@ -562,8 +562,10 @@ function foo(arr) {
   return [a, b];
 }
 
-app.get('/pago', (req, res) => {
+let folio = -1;
 
+app.get('/pago', (req, res) => {
+  folio++;
   const sub = req.body.sub;
   const iva = req.body.iva;
   const total = req.body.total;
@@ -580,6 +582,7 @@ app.get('/pago', (req, res) => {
     sub: sub,
     iva: iva,
     total: total,
+    folio:folio
   });
 
 });
