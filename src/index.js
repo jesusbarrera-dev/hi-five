@@ -235,15 +235,22 @@ app.post('/login',  urlencodedParser, (req, res) =>{
 
 app.post("/modificarp", urlencodedParser, async (req, res) => {
 
+  const id = req.body.product_id;
+
+  const name = req.body.product_name;
+  const description = req.body.product_desc;
+  const price = req.body.product_price;
+  const category = req.body.product_category;
+  const quantity = req.body.product_quantity;
+
+
   try {
-    await Product.findOneAndUpdate({_id: req.body.product_id},{
-      useFindAndModify: false
-    },{
-      name: req.body.product_name,
-      description: req.body.product_desc,
-      price: req.body.product_price,
-      category: req.body.product_category,
-      quantity: req.body.product_quantity
+    await Product.updateOne({_id: id},{
+      name: name,
+      description: description,
+      price: price,
+      category: category,
+      quantity: quantity
     });
     res.redirect("/mostrarp");
     
