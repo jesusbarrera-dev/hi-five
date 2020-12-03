@@ -407,6 +407,8 @@ app.post('/buscaru', urlencodedParser, async (req, res)=>{
 
 app.post('/modificaru', urlencodedParser, async (req, res)=>{
 
+  console.log("NOMBREEEEEEEEEEEEEE: " + req.body.id);
+
   try {
     await User.findOneAndUpdate({_id: req.body.id},{
       useFindAndModify: false
@@ -486,6 +488,8 @@ app.get('/carrito', async (req, res) => {
   });
 });
 
+let cantidadAComprar;
+
 app.post('/carrito/:idProducto', async (req, res) =>{
   try {
     const id = req.params.idProducto;
@@ -494,10 +498,34 @@ app.post('/carrito/:idProducto', async (req, res) =>{
       _id: id
     });
 
-    if(producto){
+    let existenciaProducto = producto.quantity;
+    let arrHelper = foo(theCartArray);
+    const idsCart = arrHelper[0];
+    cantidadCart = arrHelper[1];
+    console.log("IDDDDDDDDDDDD: " + id)
+    let indexHelper = idsCart.indexOf(id);
+
+    if(indexHelper === -1){
+      cantidadAComprar = 1;
+    }else if(indexHelper !== -1){
+      cantidadAComprar = cantidadCart[indexHelper];
+    }
+
+    console.log("Index que ayuda: " + indexHelper);
+    console.log("cantidad comprada: " + cantidadAComprar);
+    console.log("existencia: " + existenciaProducto);
+
+    if(producto && cantidadAComprar+1 <= existenciaProducto){
       theCartArray.push(id);
+
+      // await Product.updateOne({_id: id}, {
+      //   quantity: cantidad
+      // });
+      
       // theCartArray =[]; //vacia el arreglo
       console.log(theCartArray);
+      console.log(idsCart);
+      console.log(cantidadCart);
     }
     res.redirect('/carrito');
 
