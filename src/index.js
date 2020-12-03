@@ -407,16 +407,17 @@ app.post('/buscaru', urlencodedParser, async (req, res)=>{
 
 app.post('/modificaru', urlencodedParser, async (req, res)=>{
 
-  console.log("NOMBREEEEEEEEEEEEEE: " + req.body.id);
+    const name = req.body.name;
+    const usertype = req.body.usertype;
+    const email = req.body.email;
+    const password = req.body.password;
 
   try {
-    await User.findOneAndUpdate({_id: req.body.id},{
-      useFindAndModify: false
-    },{
-      name: req.body.name,
-      usertype: req.body.usertype,
-      email: req.body.email,
-      password: req.body.password
+    await User.updateOne({_id: req.body.id},{
+      name: name,
+      usertype: usertype,
+      email: email,
+      password: password
     });
     res.redirect("/admin");
     
@@ -502,7 +503,7 @@ app.post('/carrito/:idProducto', async (req, res) =>{
     let arrHelper = foo(theCartArray);
     const idsCart = arrHelper[0];
     cantidadCart = arrHelper[1];
-    console.log("IDDDDDDDDDDDD: " + id)
+    // console.log("IDDDDDDDDDDDD: " + id)
     let indexHelper = idsCart.indexOf(id);
 
     if(indexHelper === -1){
@@ -511,9 +512,9 @@ app.post('/carrito/:idProducto', async (req, res) =>{
       cantidadAComprar = cantidadCart[indexHelper];
     }
 
-    console.log("Index que ayuda: " + indexHelper);
-    console.log("cantidad comprada: " + cantidadAComprar);
-    console.log("existencia: " + existenciaProducto);
+    // console.log("Index que ayuda: " + indexHelper);
+    // console.log("cantidad comprada: " + cantidadAComprar);
+    // console.log("existencia: " + existenciaProducto);
 
     if(producto && cantidadAComprar+1 <= existenciaProducto){
       theCartArray.push(id);
