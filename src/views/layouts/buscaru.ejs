@@ -1,0 +1,82 @@
+<%- include('../partials/simpleNav'); -%>
+
+<p>Bienvenido <strong><%=theUser.name%></strong></p>
+<p>Hoy es: <%=theDate%></p>
+
+  <!--MOSTRAR USUARIO-->
+  <div class="flex flex-column my-4">
+    <div class="mx-auto">
+      <h1 class="text-center text-4xl my-4">Usuario encontrado</h1>
+
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th
+                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                      Nombre
+                    </th>
+                    <th
+                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                      ID Usuario
+                    </th>
+                    <th
+                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                      Contraseña
+                    </th>
+                    <th
+                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                      Tipo
+                    </th>
+                    <th class="px-6 py-3 bg-gray-50"></th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-no-wrap">
+                      <div class="flex items-center">
+                        <!-- <div class="flex-shrink-0 h-10 w-10">
+                          <img class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
+                            alt="">
+                        </div> -->
+                        <div class="ml-4">
+                          <div class="text-sm leading-5 font-medium text-gray-900">
+                            <%=user.name%>
+                          </div>
+                          <div class="text-sm leading-5 text-gray-500">
+                            <%=user.email%>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap">
+                      <div class="text-sm leading-5 text-gray-900"><%=user._id%></div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap">
+                      <div class="text-sm leading-5 text-gray-900"><%=user.password%></div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                      <%=user.usertype%>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="flex flex-column my-4">
+  <div class="container mx-auto">
+    <a href="/admin"><button class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded">Volver</button></a>
+  </div>
+</div>
+
+<%- include('../partials/footer'); -%>

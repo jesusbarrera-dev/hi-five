@@ -153,14 +153,6 @@ const storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 });
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(__dirname + "/public/images/"));
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   }
-// });
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpg" ||
@@ -188,6 +180,23 @@ let theCartArray = new Array();
 //Routes
 
 app.get('/', (req, res) => {
+
+  // const su = new User({
+  //   name: "alejandro",
+  //   usertype: "s",
+  //   email: "alejandro@admin.com",
+  //   password: "0000"
+  // });
+
+  // su.save(function(err){
+  //   if(!err){
+  //     console.log("SU registrado.");
+  //   } else if(err){
+  //     console.log(err);
+
+  //   }
+  // });
+
   res.render("./layouts/index",{
     theUser: theUser,
     theDate: theDate
@@ -197,6 +206,8 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   res.render("./layouts/login");
 });
+
+let theCart = new Cart;
 
 app.post('/login',  urlencodedParser, (req, res) =>{
   const correo = req.body.correo;
@@ -210,12 +221,12 @@ app.post('/login',  urlencodedParser, (req, res) =>{
         theUser = foundUser;
         if(foundUser.usertype === "c"){//si el usuario es tipo cliente.
           var userid = foundUser._id;
-          let theCart = new Cart({
-            user: userid
-          });
+          theCart.user = userid;
           res.redirect("/");
         } else if(foundUser.usertype === "a"){//si el usuario es tipo admin.
           res.redirect("/almacen");
+        } else if(foundUser.usertype === "s"){
+          res.redirect("/admin");
         }
       }
     }
@@ -226,6 +237,8 @@ app.post("/modificarp", urlencodedParser, async (req, res) => {
 
   try {
     await Product.findOneAndUpdate({_id: req.body.product_id},{
+      useFindAndModify: false
+    },{
       name: req.body.product_name,
       description: req.body.product_desc,
       price: req.body.product_price,
@@ -265,7 +278,7 @@ app.post('/eliminarp', urlencodedParser, async (req, res) => {
   const id = req.body.product_id;
 
   try {
-    await Product.findOneAndDelete({_id: id});
+    await Product.findOneAndDelete({_id: id}, {useFindAndModify: false});
     res.redirect('/almacen');
   } catch (error) {
     console.log(error);
@@ -296,6 +309,7 @@ app.get("/mostrarp", async (req, res) => {
       console.log(error);
   }
 });
+
 
 app.get('/hombre', async (req, res) => {
   
@@ -343,9 +357,106 @@ app.get('/mujer', async (req, res) => {
   }
 });
 
-app.get('/admin', (req, res) => {
-  res.render("./layouts/admin");
+
+app.get('/admin', (req, res)=>{
+  res.render('./layouts/admin',{
+    theUser:theUser,
+    theDate:theDate
+  });
 });
+
+app.post('/admin', urlencodedParser, async (req, res)=>{
+
+  const user = new User({
+    name: req.body.name,
+    usertype: req.body.usertype,
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  await user.save(function (err) {
+    if (!err) {
+      console.log("usuario registrado");
+      res.redirect("/admin");
+    }
+    else if (err) {
+      console.log(err);
+    }
+  });
+
+});
+
+app.post('/buscaru', urlencodedParser, async (req, res)=>{
+  const id = req.body.id;
+
+  User.findOne({_id: id}, (err, foundUser) =>{
+    if (err) {
+      console.log(err);
+    } else {
+      if(foundUser){
+        res.render("./layouts/buscaru",{
+          user: foundUser,
+          theUser: theUser,
+          theDate: theDate
+        });
+      }
+    }
+  });
+
+});
+
+app.post('/modificaru', urlencodedParser, async (req, res)=>{
+
+  try {
+    await User.findOneAndUpdate({_id: req.body.id},{
+      useFindAndModify: false
+    },{
+      name: req.body.name,
+      usertype: req.body.usertype,
+      email: req.body.email,
+      password: req.body.password
+    });
+    res.redirect("/admin");
+    
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
+app.post('/eliminaru', urlencodedParser, async (req, res) => {
+
+  const id = req.body.id;
+
+  try {
+    await User.findOneAndDelete({_id: id}, {useFindAndModify: false});
+    res.redirect('/admin');
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
+app.get("/mostraru", async (req, res) => {
+  try {
+      const usuarios = await User.find({});
+
+      var size = usuarios.length;
+
+      if (usuarios) {
+          res.render("./layouts/mostraru", {
+              users: usuarios,
+              size : size,
+              theUser: theUser,
+              theDate: theDate
+          });
+      }
+
+  } catch (error) {
+      console.log(error);
+  }
+});
+ 
 
 app.get('/almacen', (req, res) => {
   res.render("./layouts/almacen",{
@@ -354,14 +465,17 @@ app.get('/almacen', (req, res) => {
   });
 });
 
+let cantidadCart = new Array();
+
 app.get('/carrito', async (req, res) => {
 
   let arrHelper = foo(theCartArray);
   const idsCart = arrHelper[0];
-  const cantidadCart = arrHelper[1];
+  cantidadCart = arrHelper[1];
   const size = idsCart.length;
 
   const products = await Product.find().where('_id').in(idsCart).exec();
+  theCart.products = products;
 
   res.render("./layouts/carrito",{
     products: products,
@@ -418,22 +532,31 @@ app.get('/pago', (req, res) => {
   const iva = req.body.iva;
   const total = req.body.total;
 
-  const cart = new Cart({
-    user: theUser._id,
-    products: req.body.products,
-    quantities: req.body.quantities
-  });
+  // const cart = new Cart({
+  //   user: theUser._id,
+  //   products: req.body.products,
+  //   quantities: req.body.quantities
+  // });
+
+  // console.log("PRODUCTSSSSSS: " + req.body.products);
 
   res.render("./layouts/pago",{
     sub: sub,
     iva: iva,
     total: total,
-    cart: cart
   });
 
 });
 
 app.post('/pago', async (req, res) =>{
+
+  await theCart.save(function(err){
+    if(!err){
+      console.log("Carrito salvado!!!!!!!!!!!");
+    } else if(err){
+      console.log(err);
+    }
+  });
 
   const payment = new Payment({
     fname: req.body.fname,
@@ -458,8 +581,8 @@ app.post('/pago', async (req, res) =>{
   });
 
   const saleinfo = new Saleinfo({
-    products: req.body.products,
-    quantities: req.body.quantities,
+    products: theCart.products,
+    quantities: cantidadCart,
     payment: payment._id,
   });
 

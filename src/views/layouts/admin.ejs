@@ -1,5 +1,8 @@
 <%- include('../partials/simpleNav'); -%>
 
+<p>Bienvenido <strong><%=theUser.name%></strong></p>
+<p>Hoy es: <%=theDate%></p>
+
 <div class="container max-w-full">
   <!--REGISTRAR USUARIO-->
   <div class="flex flex-column my-4">
@@ -7,31 +10,28 @@
       <h1 class="text-center text-4xl my-4">Registrar usuario</h1>
 
       <form action="/admin" method="post">
-        <div class="flex flex-row m-8">
-          <label class="ml-auto mr-auto" for="user_id">Id del usuario</label>
-          <input class="ml-auto mr-auto border-solid border-black" type="number" name="user_id" id="user_id">
-        </div>
+
         <div class="flex flex-row m-8">
           <label class="ml-auto mr-auto" for="user_name">Nombre usuario</label>
-          <input class="ml-auto mr-auto border-solid border-black" type="text" name="user_name" id="user_name">
+          <input class="ml-auto mr-auto border-solid border-black" type="text" name="name" id="name">
         </div>
         <div class="flex flex-row m-8">
-          <label class="ml-auto mr-auto" for="user_rol">Rol</label>
-          <input class="ml-auto mr-auto border-solid border-black" type="text" name="user_rol" id="user_rol">
+          <label class="ml-auto mr-auto" for="user_rol">Tipo</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="text" name="usertype" id="type">
         </div>
         <div class="flex flex-row m-8">
           <label class="ml-auto mr-auto" for="user_email">Correo</label>
-          <input class="ml-auto mr-auto border-solid border-black" type="email" name="user_email" id="user_email">
+          <input class="ml-auto mr-auto border-solid border-black" type="email" name="email" id="email">
         </div>
         <div class="flex flex-row m-8">
           <label class="ml-auto mr-auto" for="user_password">Contraseña</label>
-          <input class="ml-auto mr-auto border-solid border-black" type="password" name="user_password"
-            id="user_password">
+          <input class="ml-auto mr-auto border-solid border-black" type="password" name="password"
+            id="password">
         </div>
 
         <div class="flex flex-row m-8">
           <button
-            class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
             Registrar usuario
           </button>
         </div>
@@ -40,29 +40,62 @@
     </div>
   </div>
 
+  <!--MODIFICAR USUARIO-->
+  <div class="container max-w-full">
+    <div class="container ml-auto mr-auto">
+      <h1 class="text-center text-4xl my-4">Modificar usuario</h1>
+  
+      <form action="/modificaru" method="post">
+        <div class="flex flex-row m-8">
+          <label class="ml-auto mr-auto" for="user_id">Id del usuario a modificar</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="number" name="id" id="id">
+        </div>
+        <div class="flex flex-row m-8">
+          <label class="ml-auto mr-auto" for="user_name">Nombre usuario</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="text" name="name" id="name">
+        </div>
+        <div class="flex flex-row m-8">
+          <label class="ml-auto mr-auto" for="user_rol">Tipo</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="text" name="usertype" id="type">
+        </div>
+        <div class="flex flex-row m-8">
+          <label class="ml-auto mr-auto" for="user_email">Correo</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="email" name="email" id="email">
+        </div>
+        <div class="flex flex-row m-8">
+          <label class="ml-auto mr-auto" for="user_password">Contraseña</label>
+          <input class="ml-auto mr-auto border-solid border-black" type="password" name="password"
+            id="password">
+        </div>
+  
+        <div class="flex flex-row m-8">
+          <button
+            class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
+            Modificar usuario
+          </button>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+
+
+
   <!--BUSCAR USUARIO-->
   <div class="flex flex-column my-4">
 
     <div class="container mx-auto">
       <h1 class="text-center text-4xl my-4">Buscar usuario</h1>
 
-      <form action="/admin" method="post">
+      <form action="/buscaru" method="post">
         <div class="flex flex-row m-8">
           <label class="ml-auto mr-auto" for="u-search_id">Ingrese ID del usuario a buscar: </label>
-          <input class="ml-auto mr-auto border-solid border-black" type="number" name="u-search_id" id="u-search_id">
-        </div>
-        <div class="flex flex-row m-8">
-          <label class="ml-auto mr-auto" for="u-search_name">Ingrese nombre del usuario a buscar: </label>
-          <input class="ml-auto mr-auto border-solid border-black" type="text" name="u-search_name" id="u-search_name">
-        </div>
-        <div class="flex flex-row m-8">
-          <label class="ml-auto mr-auto" for="u-search_rol">Ingrese rol del usuario a buscar: </label>
-          <input class="ml-auto mr-auto border-solid border-black" type="text" name="u-search_rol" id="u-search_rol">
+          <input class="ml-auto mr-auto border-solid border-black" type="number" name="id" id="u-search_id">
         </div>
 
         <div class="flex flex-row m-8">
           <button
-            class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+            class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
             Buscar usuario
           </button>
         </div>
@@ -72,109 +105,38 @@
   </div>
 
 
-  <!--MOSTRAR USUARIO-->
-  <div class="flex flex-column my-4">
-    <div class="mx-auto">
-      <h1 class="text-center text-4xl my-4">Mostrar usuarios</h1>
+<!--ELIMINAR USUARIO-->
+<div class="flex flex-column my-4">
 
-      <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th
-                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th
-                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      ID Usuario
-                    </th>
-                    <th
-                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th
-                      class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Rol
-                    </th>
-                    <th class="px-6 py-3 bg-gray-50"></th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                          <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
-                            alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm leading-5 font-medium text-gray-900">
-                            Daniela Diaz
-                          </div>
-                          <div class="text-sm leading-5 text-gray-500">
-                            daniela.diaz@hifive.com
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <div class="text-sm leading-5 text-gray-900">213589437</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Activo
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                      Admin
-                    </td>
-                  </tr>
+  <div class="container mx-auto">
+    <h1 class="text-center text-4xl my-4">Eliminar usuario</h1>
 
-                  <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                          <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                            alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm leading-5 font-medium text-gray-900">
-                            Carlos David
-                          </div>
-                          <div class="text-sm leading-5 text-gray-500">
-                            carlos.david95@gmail.com
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <div class="text-sm leading-5 text-gray-900">213588342</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Activo
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                      Cliente
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+    <form action="/eliminaru" method="post">
+      <div class="flex flex-row m-8">
+        <label class="ml-auto mr-auto" for="product_id">Ingrese ID del usuario a eliminar: </label>
+        <input class="ml-auto mr-auto border-solid border-black" type="number" name="id" id="product_id">
       </div>
-    </div>
+
+      <div class="flex flex-row m-8">
+        <button
+          class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
+          Eliminar usuario
+        </button>
+      </div>
+
+    </form>
+
   </div>
+</div>
+
+  <!-- BOTON PARA MOSTRAR USUARIOS -->
+
+<div class="flex flex-column my-4">
+  <div class="container mx-auto">
+    <a href="/mostraru"><button class="ml-auto mr-auto bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 rounded">Ver todos los usuarios</button></a>
+  </div>
+</div>
+
 </div>
 
 
